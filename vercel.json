@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "cd client && npm run build",
-  "installCommand": "cd client && npm install",
+  "installCommand": "cd client && npm install --legacy-peer-deps",
   "outputDirectory": "client/.next"
 }
