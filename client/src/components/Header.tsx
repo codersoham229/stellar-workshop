@@ -1,43 +1,40 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { StellarLogo } from "@/components/ui/stellar-logo";
 
 interface HeaderProps {
   connected: boolean;
   address: string | null;
   onConnect: () => void;
+  isLoading?: boolean;
 }
 
-export default function Header({ connected, address, onConnect }: HeaderProps) {
+export default function Header({ connected, address, onConnect, isLoading }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/20">
-            <svg
-              className="h-4 w-4 text-accent"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
-          </div>
-          <span className="font-mono text-sm font-bold tracking-widest text-foreground/90">
+        <div className="flex items-center gap-3">
+          <StellarLogo showPoweredBy={false} />
+          <span className="h-4 w-px bg-white/20" />
+          <span className="font-mono text-xs font-bold tracking-widest text-foreground/80">
             DEV CON 2026
           </span>
         </div>
 
         <button
           onClick={onConnect}
-          className="group relative flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-sm font-medium text-foreground/80 transition-all hover:border-accent/40 hover:bg-accent/10 hover:text-foreground"
+          disabled={isLoading}
+          className="group relative flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-sm font-medium text-foreground/80 transition-all hover:border-accent/40 hover:bg-accent/10 hover:text-foreground disabled:opacity-50"
         >
-          {connected && address ? (
+          {isLoading ? (
+            <>
+              <svg className="h-4 w-4 animate-spin text-accent" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              <span className="text-xs">Checking Wallet...</span>
+            </>
+          ) : connected && address ? (
             <>
               <span className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)]" />
               <span className="font-mono text-xs">
