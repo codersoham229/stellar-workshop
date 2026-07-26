@@ -2,10 +2,14 @@
   "name": "stellar-workshop",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "client"
+  ],
   "scripts": {
     "dev": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
     "start": "npm run start --prefix client",
-    "lint": "npm run lint --prefix client"
+    "lint": "npm run lint --prefix client",
+    "postinstall": "npm install --prefix client"
   }
 }
